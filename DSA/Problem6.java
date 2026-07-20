@@ -110,11 +110,10 @@ public class Problem6 {
     // ---------------- PART B ----------------
     public static int subarraySum(int[] nums, int k) {
         Map<Integer,Integer> map = new HashMap<>();
+        int sum=0,count=0;
         map.put(0,1);
-        int sum =0;
-        int count = 0;
-        for(int i : nums){
-            sum += i;
+        for(int i=0;i<nums.length;i++){
+            sum+= nums[i];
             count += map.getOrDefault(sum-k, 0);
             map.merge(sum, 1, Integer::sum);
         }
