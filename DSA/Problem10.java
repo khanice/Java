@@ -120,24 +120,21 @@ public class Problem10 {
 
     // ---------------- PART A ----------------
     public static boolean isValid(String s) {
-        Deque<Character> stack =  new ArrayDeque<>();
-        if(s.length() <= 1)return true;
-        for(int i=0;i<s.length();i++){
-            while(!stack.isEmpty()){
-                if(s.charAt(i)=='{' ){
-                    stack.push('}');
-                }else if (s.charAt(i) == '[' ) {
-                    stack.push(']');
-                }else if(s.charAt(i) == '(') {
-                    stack.push(')');
-                } else {
-                    if (stack.isEmpty() || stack.pop() != s.charAt(i)) {
-                        return false;
-                    }
+        Deque<Character> stack = new ArrayDeque<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '{') {
+                stack.push('}');
+            } else if (c == '[') {
+                stack.push(']');
+            } else if (c == '(') {
+                stack.push(')');
+            } else {
+                if (stack.isEmpty() || stack.pop() != c) {
+                    return false;
                 }
             }
         }
-        
         return stack.isEmpty();
     }
 
