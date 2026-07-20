@@ -1,6 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Deque;
+import java.util.Stack;
 
 /*
  * PROBLEM 10: Stacks -- three parts, escalating. Do them in order.
@@ -142,14 +143,31 @@ public class Problem10 {
 
     // ---------------- PART B ----------------
     public static int[] nextGreater(int[] nums) {
-        // TODO: your code here
-        return new int[0];
+        int[] result = new int[nums.length];
+        Arrays.fill(result,-1);
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<nums.length;i++){
+            while (!stack.isEmpty() && nums[i]>nums[stack.peek()]) {
+                int j= stack.pop();
+                result[j] = nums[i];
+            }
+            stack.push(i);
+        }
+        return result;
     }
 
     // ---------------- PART C ----------------
-    public static int[] dailyTemperatures(int[] temps) {
-        // TODO: your code here
-        return new int[0];
+    public static int[] dailyTemperatures(int[] temps) {int[] result = new int[temps.length];
+        
+        Stack<Integer> stack = new Stack<>();
+        for(int i=0;i<temps.length;i++){
+            while (!stack.isEmpty() && temps[i]>temps[stack.peek()]) {
+                int j= stack.pop();
+                result[j] = i-j;
+            }
+            stack.push(i);
+        }
+        return result;
     }
 
     // ---------------------------------------------------------------
