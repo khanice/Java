@@ -111,32 +111,35 @@ public class Problem11 {
 
     // ---------------- PART A ----------------
     static class MinStack {
+        private ArrayList<Integer> stack = new ArrayList<>();
+        private ArrayList<Integer> minStack = new ArrayList<>();
         public MinStack() {
-            // TODO
+            
         }
 
         public void push(int val) {
-            // TODO
+            stack.add(val);
+            int newMin = minStack.isEmpty()? val : Math.min(val,minStack.get(minStack.size()-1));
+            minStack.add(newMin);
         }
 
         public void pop() {
-            // TODO
+            stack.remove(stack.size()-1);
+            stack.remove(minStack.size()-1);
         }
 
         public int top() {
-            // TODO
-            return -1;
+            
+            return stack.get(stack.size()-1);
         }
 
         public int getMin() {
-            // TODO
-            return -1;
+            return minStack.get(minStack.size()-1);
         }
     }
 
     // ---------------- PART B ----------------
     public static int evalRPN(String[] tokens) {
-        // TODO
         return 0;
     }
 
