@@ -1,6 +1,9 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.Stack;
 
 /*
  * PROBLEM 11: Stacks II -- three parts, escalating. Do them in order.
@@ -125,7 +128,7 @@ public class Problem11 {
 
         public void pop() {
             stack.remove(stack.size()-1);
-            stack.remove(minStack.size()-1);
+            minStack.remove(minStack.size()-1);
         }
 
         public int top() {
@@ -140,12 +143,48 @@ public class Problem11 {
 
     // ---------------- PART B ----------------
     public static int evalRPN(String[] tokens) {
-        return 0;
-    }
+        Deque<String> stack = new ArrayDeque<>();
+        for(int i=0;i<tokens.length;i++){
+            if(!isElementInteger(tokens, i)){
+                    Integer rightOperand = Integer.parseInt(stack.pop());
+                    Integer leftOperand = Integer.parseInt(stack.pop());
+                    if(tokens[i].equals("+")){
+                        Integer r = leftOperand + rightOperand;
+                        stack.push(r.toString());
+                    }else if (tokens[i].equals("*")) {
+                        Integer r = leftOperand * rightOperand;
+                        stack.push(r.toString());
+                    }else if (tokens[i].equals("/")) {
+                        Integer r = leftOperand / rightOperand;
+                        stack.push(r.toString());
+                    }else if (tokens[i].equals("-")) {
+                        Integer r = leftOperand - rightOperand;
+                        stack.push(r.toString());
+                    }
 
+            }else{
+                stack.push(tokens[i]);
+            }
+        }
+        return Integer.parseInt(stack.pop());
+    }
+    
+    public static boolean isElementInteger(String[] arr, int index) {
+        // Safety check for array bounds and null values
+        if (arr == null || index < 0 || index >= arr.length || arr[index] == null) {
+            return false;
+        }
+
+        try {
+            Integer.parseInt(arr[index]);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     // ---------------- PART C ----------------
     public static int largestRectangleArea(int[] heights) {
-        // TODO
+        
         return 0;
     }
 
